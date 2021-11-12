@@ -21,7 +21,8 @@ namespace HostApp
             var pluginLoadContext = new PluginLoadContext(pluginDllPath);
             using (pluginLoadContext.EnterContextualReflection())
             {
-                var pluginUserControl = Activator.CreateInstance("Plugin", "Plugin.PluginUserControl");
+                var assembly = pluginLoadContext.LoadFromAssemblyPath(pluginDllPath);
+                var pluginUserControl = Activator.CreateInstance(assembly.GetType("Plugin.PluginUserControl"));
             }
         }
     }
